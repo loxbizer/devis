@@ -89,6 +89,10 @@ const GROUPS = [
         name: "Multi-utilisateurs",
         text: "Jusqu'à 5 comptes avec le plan Équipe, pour vos commerciaux et conducteurs de travaux.",
       },
+      {
+        name: "Points de récompense",
+        text: "Chaque devis publié, consulté ou accepté vous fait gagner des points — échangeables contre un badge « Certifié » ou une réduction sur votre prochaine facture. Ludique, jamais obligatoire.",
+      },
     ],
   },
 ];

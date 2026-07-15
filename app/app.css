@@ -73,6 +73,10 @@
 html,
 body {
   @apply bg-white text-slate-900 antialiased;
+  /* Légèrement plus grand que 16px nulle part : 16px partout, interlignage
+     généreux — plus reposant pour les yeux. */
+  font-size: 16px;
+  line-height: 1.6;
   scroll-behavior: smooth;
 }
 

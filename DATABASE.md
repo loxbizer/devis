@@ -28,6 +28,7 @@ Cloudflare **D1** (SQLite) piloté par **Drizzle ORM**. Schéma :
 | `proposal_acceptances`     | Acceptations : identité déclarée, formule, options, total, version, user-agent, IP (preuve)                                                         |
 | `notifications`            | Centre de notifications interne par organisation                                                                                                    |
 | `audit_logs`               | Journal d'audit des actions sensibles                                                                                                               |
+| `reward_transactions`      | Points de récompense : gains (+) / dépenses (−), idempotents via (org, raison, réf) — le solde est la somme des deltas                              |
 | `stripe_webhook_events`    | Webhooks reçus (idempotence + affichage admin)                                                                                                      |
 
 ## Conventions

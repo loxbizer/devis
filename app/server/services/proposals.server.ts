@@ -4,6 +4,7 @@ import type { SectionType } from "~/lib/sections";
 import { newId, randomToken, sha256Hex } from "../auth/password.server";
 import { getDb, schema } from "../db.server";
 import { notifyOrganization } from "./notifications.server";
+import { awardPoints } from "./rewards.server";
 
 export type Proposal = typeof schema.proposals.$inferSelect;
 export type ProposalSection = typeof schema.proposalSections.$inferSelect;
@@ -215,6 +216,8 @@ export async function publishProposal(proposal: Proposal, userId: string) {
     })
     .where(eq(schema.proposals.id, proposal.id));
   await recordEvent(proposal.id, "published", { version: nextVersion });
+  // Points de récompense — idempotent : une seule fois par devis.
+  await awardPoints(proposal.organizationId, "proposal_published", proposal.id);
 }
 
 export async function setAccessCode(proposalId: string, code: string | null) {
@@ -391,6 +394,7 @@ export async function recordView(params: {
       body: "Votre client vient d'ouvrir sa DevisRoom pour la première fois.",
       linkTo: `/app/devis/${params.proposalId}/statistiques`,
     });
+    await awardPoints(params.organizationId, "first_view", params.proposalId);
   }
 }
 
@@ -501,8 +505,9 @@ export async function acceptProposal(
     organizationId: proposal.organizationId,
     type: "accepted",
     title: `Proposition acceptée : ${proposal.title}`,
-    body: `${input.name} a accepté « ${packageName} » pour un total de ${(pricing.totalCents / 100).toLocaleString("fr-FR")} €.`,
+    body: `${input.name} a accepté « ${packageName} » pour un total de ${(pricing.totalCents / 100).toLocaleString("fr-FR")} €. Vous gagnez 100 points de récompense !`,
     linkTo: `/app/devis/${proposal.id}`,
   });
+  await awardPoints(proposal.organizationId, "proposal_accepted", proposal.id);
   return { ok: true, acceptanceId, totalCents: pricing.totalCents };
 }

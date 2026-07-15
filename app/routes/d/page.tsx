@@ -2,6 +2,7 @@ import { data, redirect } from "react-router";
 import { ProposalPublicPage } from "~/components/proposal/public-page";
 import { Alert, Button, Input } from "~/components/ui/primitives";
 import { getPlan } from "~/lib/plans";
+import { computeBadge } from "~/lib/rewards";
 import type { PublicProposalVM } from "~/lib/proposal-vm";
 import { getSession, readCookie } from "~/server/auth/session.server";
 import {
@@ -13,6 +14,7 @@ import {
 import { randomToken, sha256Hex } from "~/server/auth/password.server";
 import { getDb, schema } from "~/server/db.server";
 import { notifyOrganization } from "~/server/services/notifications.server";
+import { awardPoints } from "~/server/services/rewards.server";
 import {
   acceptProposal,
   getProposalDetails,
@@ -153,6 +155,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     branding: plan.limits.branding,
     organization: {
       name: organization.name,
+      badge: computeBadge(organization.badge, plan.id),
       profession: organization.profession,
       phone: organization.phone,
       email: organization.email,
@@ -431,6 +434,7 @@ export async function action({ request, params }: Route.ActionArgs) {
         body: "Votre client a ouvert la page de paiement de l'acompte.",
         linkTo: `/app/devis/${proposal.id}`,
       });
+      await awardPoints(organization.id, "deposit_started", proposal.id);
       return redirect(organization.stripePaymentLink);
     }
     default:

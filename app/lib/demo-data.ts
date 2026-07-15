@@ -10,6 +10,7 @@ export const DEMO_PROPOSAL_VM: PublicProposalVM = {
   branding: "discreet",
   organization: {
     name: "Horizon Toiture",
+    badge: "gold",
     profession: "Couverture & rénovation de toiture",
     phone: "01 23 45 67 89",
     email: "contact@horizon-toiture.example",

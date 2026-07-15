@@ -78,6 +78,7 @@ export default [
     route("app/devis/:id", "routes/app/devis/detail.tsx"),
     route("app/devis/:id/modifier", "routes/app/devis/modifier.tsx"),
     route("app/devis/:id/statistiques", "routes/app/devis/statistiques.tsx"),
+    route("app/recompenses", "routes/app/recompenses.tsx"),
     route("app/entreprise", "routes/app/entreprise.tsx"),
     route("app/abonnement", "routes/app/abonnement.tsx"),
     route("app/parametres", "routes/app/parametres.tsx"),

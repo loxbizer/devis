@@ -169,6 +169,28 @@ personnalisé peut être ajouté ensuite dans le dashboard Cloudflare
 (Workers → Domains & Routes) sans changement de code — pensez à mettre à
 jour la variable `APP_URL`.
 
+## Programme de récompenses
+
+Un système de points façon « miles », ludique et jamais insistant
+(`/app/recompenses`) :
+
+- **Gagner** : configuration terminée (+50), devis publié (+20, une fois par
+  devis), première consultation par le client (+10), devis accepté (+100),
+  acompte déclenché (+30). Les gains sont idempotents (un événement ne
+  crédite jamais deux fois) et les points n'expirent pas.
+- **Échanger** : badge bleu « Certifié » affiché sur toutes les pages de
+  devis (300 pts, définitif), −20 % (600 pts) ou −50 % (1 200 pts) appliqués
+  une fois sur la prochaine facture d'un abonnement payant (coupon Stripe
+  `duration: once`). Les points ne sont débités que si la récompense est
+  réellement appliquée.
+- **Badge Or** : offert automatiquement avec les plans Pro et Équipe — il
+  prime sur le badge points.
+- **Niveaux** : Bronze / Argent / Or / Platine selon le total de points
+  gagnés, purement décoratifs.
+
+Règles et catalogue : `app/lib/rewards.ts` · service :
+`app/server/services/rewards.server.ts`.
+
 ## Limites du plan gratuit
 
 - 3 DevisRooms actives (publiées, non archivées) ;

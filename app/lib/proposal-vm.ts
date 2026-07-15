@@ -31,6 +31,8 @@ export interface PublicProposalVM {
   slug: string | null; // null = démonstration (actions simulées)
   organization: {
     name: string;
+    /** Badge de confiance : « gold » (plans payants) ou « certified » (points). */
+    badge: "none" | "certified" | "gold";
     profession: string | null;
     phone: string | null;
     email: string | null;

@@ -14,6 +14,7 @@ import {
   upsertSection,
 } from "~/server/services/proposals.server";
 import { canStoreFile, getQuotaUsage } from "~/server/services/quotas.server";
+import { awardPoints } from "~/server/services/rewards.server";
 import { storeAsset } from "~/server/services/storage.server";
 import type { Route } from "./+types/onboarding";
 
@@ -185,7 +186,11 @@ export async function action({ request }: Route.ActionArgs) {
         .update(schema.organizations)
         .set({ onboardingStep: step, updatedAt: new Date() })
         .where(eq(schema.organizations.id, org.id));
-      if (step >= 5) throw redirect("/app");
+      if (step >= 5) {
+        // Petit cadeau de bienvenue (une seule fois par organisation).
+        await awardPoints(org.id, "onboarding_done", org.id);
+        throw redirect("/app");
+      }
       return { ok: true };
     }
     default:

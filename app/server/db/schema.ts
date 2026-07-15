@@ -110,6 +110,13 @@ export const organizations = sqliteTable(
     bankTransferDetails: text("bank_transfer_details"),
     /** Étape d'onboarding atteinte (0 à 5, 5 = terminé). */
     onboardingStep: integer("onboarding_step").notNull().default(0),
+    /**
+     * Badge « Certifié » débloqué avec des points de récompense.
+     * Le badge Or est calculé (plans Pro/Équipe), jamais stocké.
+     */
+    badge: text("badge", { enum: ["none", "certified"] })
+      .notNull()
+      .default("none"),
     suspendedAt: integer("suspended_at", { mode: "timestamp_ms" }),
     deletedAt: integer("deleted_at", { mode: "timestamp_ms" }),
     createdAt,
@@ -508,6 +515,35 @@ export const auditLogs = sqliteTable(
   (t) => [
     index("audit_logs_org_idx").on(t.organizationId, t.createdAt),
     index("audit_logs_action_idx").on(t.action),
+  ],
+);
+
+/**
+ * Points de récompense : chaque ligne est un gain (+) ou une dépense (-).
+ * Le solde est toujours la somme des deltas — pas de compteur à désynchroniser.
+ * L'unicité (organisation, raison, référence) rend les gains idempotents.
+ */
+export const rewardTransactions = sqliteTable(
+  "reward_transactions",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organizations.id, { onDelete: "cascade" }),
+    delta: integer("delta").notNull(),
+    reason: text("reason").notNull(),
+    /** Référence de l'événement source (ex. id de proposition). */
+    refId: text("ref_id"),
+    label: text("label").notNull(),
+    createdAt,
+  },
+  (t) => [
+    uniqueIndex("reward_transactions_unique_idx").on(
+      t.organizationId,
+      t.reason,
+      t.refId,
+    ),
+    index("reward_transactions_org_idx").on(t.organizationId, t.createdAt),
   ],
 );
 

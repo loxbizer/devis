@@ -29,7 +29,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            Bonjour {loaderData.firstName}
+            Bonjour {loaderData.firstName} 👋
           </h1>
           <p className="mt-1 text-sm text-slate-500">
             {quotas.activeProposals}/{quotas.limits.maxActiveProposals}{" "}
@@ -37,12 +37,24 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             {formatBytes(quotas.limits.maxStorageBytes)} utilisés
           </p>
         </div>
-        <Link
-          to="/app/devis/nouveau"
-          className="rounded-(--radius-button) bg-brand-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700"
-        >
-          Nouvelle DevisRoom
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            to="/app/devis/nouveau"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
+          >
+            <span aria-hidden="true" className="text-base leading-none">
+              +
+            </span>
+            Nouvelle DevisRoom
+          </Link>
+          <Link
+            to="/app/recompenses"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-sm font-medium text-slate-700 ring-1 ring-slate-200 transition hover:ring-brand-300"
+          >
+            <span aria-hidden="true">✦</span>
+            Mes récompenses
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">

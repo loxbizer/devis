@@ -118,3 +118,10 @@ VALUES (
   'M. Martin : « L''échafaudage occupera-t-il le trottoir côté rue ? »',
   '/app/devis/seed-proposal-demo'
 );
+
+-- Points de récompense de démonstration.
+INSERT OR IGNORE INTO reward_transactions (id, organization_id, delta, reason, ref_id, label, created_at)
+VALUES
+  ('seed-rw-1', 'seed-org-demo', 50, 'onboarding_done', 'seed-org-demo', 'Bienvenue à bord', unixepoch() * 1000 - 86400000 * 5),
+  ('seed-rw-2', 'seed-org-demo', 20, 'proposal_published', 'seed-proposal-demo', 'DevisRoom publiée', unixepoch() * 1000 - 86400000 * 3),
+  ('seed-rw-3', 'seed-org-demo', 10, 'first_view', 'seed-proposal-demo', 'Devis consulté', unixepoch() * 1000 - 86400000 * 2);

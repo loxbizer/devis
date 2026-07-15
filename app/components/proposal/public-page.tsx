@@ -116,7 +116,33 @@ export function ProposalPublicPage({ vm }: { vm: PublicProposalVM }) {
             </div>
           )}
           <div>
-            <p className="text-lg font-bold">{org.name}</p>
+            <p className="flex flex-wrap items-center gap-2 text-lg font-bold">
+              {org.name}
+              {org.badge !== "none" && (
+                <span
+                  className={
+                    org.badge === "gold"
+                      ? "inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800"
+                      : "inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-800"
+                  }
+                  title="Badge de confiance DevisRoom"
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-3.5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {org.badge === "gold" ? "Certifié Or" : "Certifié"}
+                </span>
+              )}
+            </p>
             {org.profession && (
               <p className="text-sm text-slate-500">{org.profession}</p>
             )}
