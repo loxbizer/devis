@@ -27,11 +27,10 @@ STRIPE_PRICE_TEAM_MONTHLY=
 STRIPE_PRICE_TEAM_YEARLY=
 
 # --- Cloudflare Turnstile (anti-bot) ---
-# Clés de test Cloudflare (toujours valides en local) :
-#   site key   : 1x00000000000000000000AA  (visible, toujours OK)
-#   secret key : 1x0000000000000000000000000000000AA (toujours OK)
-TURNSTILE_SITE_KEY=1x00000000000000000000AA
-TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+# Facultatif en local : la vérification n'est JAMAIS bloquante en
+# développement. Décommentez pour voir le widget (clés de test Cloudflare) :
+# TURNSTILE_SITE_KEY=1x00000000000000000000AA
+# TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 
 # --- Administration ---
 # L'utilisateur inscrit avec cet e-mail reçoit le rôle administrateur.

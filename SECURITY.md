@@ -46,6 +46,16 @@ Persistée en D1 (aucun service externe) : connexion (10/15 min par IP **et**
 par compte), inscription (5/h), réinitialisation (5/h), formulaires publics
 (10/10 min), code d'accès (10/15 min), uploads (60/h).
 
+## Turnstile (anti-bot)
+
+Protection supplémentaire, jamais un verrou : la vérification n'est
+appliquée qu'en production **et** avec une configuration complète (site key
+
+- secret key). En développement, en cas de configuration incomplète ou si
+  l'API Cloudflare est injoignable, elle laisse passer (journalisé) — le rate
+  limiting et le hachage des mots de passe restent actifs dans tous les cas.
+  Un utilisateur légitime ne doit jamais être enfermé dehors.
+
 ## Fichiers
 
 - Types vérifiés par **signatures binaires** (magic bytes), pas seulement le
