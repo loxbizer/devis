@@ -50,11 +50,10 @@ par compte), inscription (5/h), réinitialisation (5/h), formulaires publics
 
 Protection supplémentaire, jamais un verrou : la vérification n'est
 appliquée qu'en production **et** avec une configuration complète (site key
-
-- secret key). En développement, en cas de configuration incomplète ou si
-  l'API Cloudflare est injoignable, elle laisse passer (journalisé) — le rate
-  limiting et le hachage des mots de passe restent actifs dans tous les cas.
-  Un utilisateur légitime ne doit jamais être enfermé dehors.
+et secret key). En développement, en cas de configuration incomplète ou si
+l'API Cloudflare est injoignable, elle laisse passer (journalisé) — le rate
+limiting et le hachage des mots de passe restent actifs dans tous les cas.
+Un utilisateur légitime ne doit jamais être enfermé dehors.
 
 ## Fichiers
 
