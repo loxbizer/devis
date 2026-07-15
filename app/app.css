@@ -1,0 +1,104 @@
+@import "tailwindcss" source(".");
+
+/* ------------------------------------------------------------------
+   Design tokens DevisRoom
+   ------------------------------------------------------------------ */
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* Couleurs de marque */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+
+  /* Fond sombre de la landing */
+  --color-night-950: #070b14;
+  --color-night-900: #0b1220;
+  --color-night-800: #111a2e;
+  --color-night-700: #1a2540;
+
+  /* Rayons */
+  --radius-card: 1rem;
+  --radius-button: 0.625rem;
+
+  /* Ombres */
+  --shadow-card:
+    0 1px 2px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.08);
+  --shadow-float:
+    0 2px 6px rgb(2 6 23 / 0.35), 0 24px 60px -12px rgb(2 6 23 / 0.55);
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.5s ease both;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+}
+
+html,
+body {
+  @apply bg-white text-slate-900 antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Surfaces translucides de la landing sombre */
+.glass {
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  backdrop-filter: blur(12px);
+}
+
+/* Respect systématique de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible accessible partout */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}

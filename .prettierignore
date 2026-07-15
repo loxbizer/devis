@@ -1,0 +1,9 @@
+build/
+.react-router/
+.wrangler/
+node_modules/
+worker-configuration.d.ts
+drizzle/migrations/
+package-lock.json
+playwright-report/
+test-results/

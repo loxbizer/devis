@@ -1,0 +1,42 @@
+# ------------------------------------------------------------------
+# Variables d'environnement locales — copier vers `.dev.vars`
+# NE JAMAAIS committer `.dev.vars`. Aucune vraie clé ici.
+# En production : `wrangler secret put <NOM>` pour chaque secret.
+# ------------------------------------------------------------------
+
+# Environnement : development | production
+ENVIRONMENT=development
+
+# URL publique de l'application (utilisée dans les liens et redirections Stripe)
+APP_URL=http://localhost:5173
+
+# Secret de signature des sessions (générer avec : openssl rand -hex 32)
+SESSION_SECRET=remplacer-par-64-caracteres-hexadecimaux-aleatoires
+
+# --- Stripe (facultatif en local : sans clés, le mode démonstration s'active) ---
+# Clé secrète API (mode test : sk_test_...)
+STRIPE_SECRET_KEY=
+# Secret de vérification des webhooks (whsec_...)
+STRIPE_WEBHOOK_SECRET=
+# IDs des prix Stripe (créés dans le dashboard Stripe, mode test possible)
+STRIPE_PRICE_SOLO_MONTHLY=
+STRIPE_PRICE_SOLO_YEARLY=
+STRIPE_PRICE_PRO_MONTHLY=
+STRIPE_PRICE_PRO_YEARLY=
+STRIPE_PRICE_TEAM_MONTHLY=
+STRIPE_PRICE_TEAM_YEARLY=
+
+# --- Cloudflare Turnstile (anti-bot) ---
+# Clés de test Cloudflare (toujours valides en local) :
+#   site key   : 1x00000000000000000000AA  (visible, toujours OK)
+#   secret key : 1x0000000000000000000000000000000AA (toujours OK)
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+# --- Administration ---
+# L'utilisateur inscrit avec cet e-mail reçoit le rôle administrateur.
+ADMIN_EMAIL=admin@example.com
+
+# --- R2 ---
+# En local, R2 est simulé par Miniflare (aucune clé nécessaire).
+# En production, le bucket est lié via wrangler.jsonc (binding FILES).

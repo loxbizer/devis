@@ -1,0 +1,36 @@
+/**
+ * Configuration Cloudflare Workers pour DevisRoom.
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "devisroom",
+  "compatibility_date": "2026-07-15",
+  "main": "./workers/app.ts",
+  "observability": {
+    "enabled": true,
+  },
+  "upload_source_maps": true,
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    // Variables non secrètes. Les secrets (SESSION_SECRET, STRIPE_SECRET_KEY, etc.)
+    // sont définis via `wrangler secret put` en production et `.dev.vars` en local.
+    "ENVIRONMENT": "development",
+    "APP_URL": "http://localhost:5173",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "devisroom",
+      // Remplacer par l'ID réel après `wrangler d1 create devisroom`
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "./drizzle/migrations",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "devisroom-files",
+    },
+  ],
+}
